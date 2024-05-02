@@ -1,0 +1,158 @@
+<div class="card">
+    <span class="text-900 text-xl font-bold mb-4 block">Create User</span>
+    <div class="grid">
+        <div class="col-12 lg:col-2">
+            <div class="col-12 md:col-4">
+                <div class="field-radiobutton">
+                    <p-radioButton
+                        name="Client"
+                        value="Client"
+                        [(ngModel)]="valRadio"
+                        id="city1"
+                    ></p-radioButton>
+                    <label for="city1">Client</label>
+                </div>
+                <div class="field-radiobutton">
+                    <p-radioButton
+                        name="city"
+                        value="Supplier"
+                        [(ngModel)]="valRadio"
+                        id="city1"
+                    ></p-radioButton>
+                    <label for="city1">Supplier</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-10">
+            <div class="grid formgrid p-fluid">
+              
+                <div class="field mb-4 col-12">
+                    <label for="email" class="font-medium text-900"
+                        >email</label
+                    >
+                    <input id="email" type="text" pInputText />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="userName" class="font-medium text-900"
+                        >addresse</label
+                    >
+                    <input id="userName" type="text" pInputText />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="phone" class="font-medium text-900"
+                        >phone</label
+                    >
+                    <input id="phone" type="text" pInputText />
+                </div>
+                <div class="field mb-4 col-12" *ngIf="valRadio ==='Client'" >
+                    <label for="phone" class="font-medium text-900"
+                        >Remise TVA</label
+                    >
+                    <input id="tauxRemise" type="text" pInputText />
+                </div>
+                <div class="field mb-4 col-12" *ngIf="valRadio ==='Supplier'" >
+                    <label for="phone" class="font-medium text-900"
+                        >CIN</label
+                    >
+                    <input id="CIN" type="text" pInputText />
+                </div>
+                <div class="field mb-4 col-12" *ngIf="valRadio ==='Supplier'" >
+                    <label for="phone" class="font-medium text-900"
+                        >RIB</label
+                    >
+                    <input id="RIB" type="text" pInputText />
+                </div> 
+              
+              
+               
+                
+                    <p-confirmDialog header="Confirmation" key="confirm1" icon="pi pi-exclamation-triangle" message="Are you sure you want to proceed?"
+                                     [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text">
+                    </p-confirmDialog>
+                   
+                
+
+            
+                <!--
+                <div class="field mb-4 col-12">
+                    <label for="bio" class="font-medium text-900">Bio</label>
+                    <textarea
+                        id="bio"
+                        type="text"
+                        pInputTextarea
+                        rows="5"
+                        [autoResize]="true"
+                    ></textarea>
+                </div>
+                
+                <div class="field mb-4 col-12 md:col-6">
+                    <label for="email" class="font-medium text-900"
+                        >Email</label
+                    >
+                    <input id="email" type="text" pInputText />
+                </div>
+                <div class="field mb-4 col-12 md:col-6">
+                    <label for="country" class="font-medium text-900"
+                        >Country</label
+                    >
+                    <p-dropdown
+                        inputId="country"
+                        [options]="countries"
+                        optionLabel="name"
+                        [filter]="true"
+                        filterBy="name"
+                        [showClear]="true"
+                        placeholder="Select a Country"
+                    >
+                        <ng-template let-country pTemplate="item">
+                            <div class="flex align-items-center">
+                                <img
+                                    src="assets/demo/images/flag/flag_placeholder.png"
+                                    [class]="
+                                        'mr-2 flag flag-' +
+                                        country.code.toLowerCase()
+                                    "
+                                    style="width: 18px"
+                                />
+                                <div>{{ country.name }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                <div class="field mb-4 col-12 md:col-6">
+                    <label for="city" class="font-medium text-900">City</label>
+                    <input id="city" type="text" pInputText />
+                </div>
+                <div class="field mb-4 col-12 md:col-6">
+                    <label for="state" class="font-medium text-900"
+                        >State</label
+                    >
+                    <input id="state" type="text" pInputText />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="website" class="font-medium text-900"
+                        >Website</label
+                    >
+                    <p-inputGroup>
+                        <p-inputGroupAddon>
+                            <span>www</span>
+                        </p-inputGroupAddon>
+                        <input id="website" type="text" pInputText />
+                    </p-inputGroup>
+                </div>-->  
+            
+
+                <div class="col-12">
+                    <button
+                        pButton
+                        pRipple
+                        label="Create User"
+                        class="w-auto mt-3"
+                        (click)="createWorker()"
+                    ></button>
+                    <p-messages [value]="msgs"></p-messages>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
