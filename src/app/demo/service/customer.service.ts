@@ -43,20 +43,16 @@ getClient() : Promise<any>{
   .toPromise()
   .then(res => res as any);
 }
-postUser(userJson: any,x:number) {
+postUser(userJson: any) {
     const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json' // Spécifiez le type de contenu JSON
         })
       };
-      console.log(x);
- if(x==0)
-  {
+ 
     return this.http.post<any>('http://localhost:8090/api/postClient', userJson,httpOptions);
-  }
- else {
-  return this.http.post<any>('http://localhost:8090/api/postSupplier', userJson,httpOptions);
- }
+
+ 
     
    
 }

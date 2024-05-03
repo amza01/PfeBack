@@ -28,6 +28,27 @@ const routes: Routes = [
                     ),
             },
             {
+                path: 'client',
+                loadChildren: () =>
+                    import('./demo/components/Client/client.module').then(
+                        (m) => m.ClientModule
+                    ),
+            },
+            {
+                path: 'fournisseur',
+                loadChildren: () =>
+                    import('./demo/components/Fournisseur/fournisseur.module').then(
+                        (m) => m.FournisseurModule
+                    ),
+            },
+            {
+                path: 'article',
+                loadChildren: () =>
+                    import('./demo/components/Article/article.module').then(
+                        (m) => m.ArticleModule
+                    ),
+            },
+            {
                 path: 'uikit',
                 data: { breadcrumb: 'UI Kit' },
                 loadChildren: () =>
