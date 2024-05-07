@@ -1,0 +1,192 @@
+<div class="card">
+    <p-table
+        #dt
+        [value]="articles"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        responsiveLayout="scroll"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [globalFilterFields]="['name', 'country.name', 'representative.name']"
+    >
+        <ng-template pTemplate="caption">
+            <div
+                class="flex flex-wrap gap-2 align-items-center justify-content-between"
+            >
+                <span
+                    class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0"
+                >
+                    <i class="pi pi-search"></i>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="onGlobalFilter(dt, $event)"
+                        placeholder="Global Search"
+                        class="w-full"
+                    />
+                </span>
+                <button
+                    (click)="navigateToCreateArticle()"
+                    pButton
+                    class="p-button-outlined w-full sm:w-auto flex-order-0 sm:flex-order-1"
+                    icon="pi pi-user-plus"
+                    label="Créer un article"
+                ></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+              
+                <th
+                    pSortableColumn="email"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    ID <p-sortIcon field="email"></p-sortIcon>
+                </th>
+                <th
+                    pSortableColumn="Code"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    Code<p-sortIcon field="Code"></p-sortIcon>
+                </th>
+                <th
+                    pSortableColumn="Libelle"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    Libelle <p-sortIcon field="Libelle"></p-sortIcon>
+                </th>
+                <th
+                    pSortableColumn="Libelle"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    Quantité<p-sortIcon field="Quantité"></p-sortIcon>
+                </th>
+                <th
+                    pSortableColumn="Libelle"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    Prix Unitaire<p-sortIcon field="Quantité"></p-sortIcon>
+                </th>
+                <th
+                    pSortableColumn="Libelle"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    TVA<p-sortIcon field="Quantité"></p-sortIcon>
+                </th>
+              
+            <th
+                   
+                   class="white-space-nowrap"
+                   style="width: 25%"
+               >
+              Actions     
+            </th>
+             
+               
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-article>
+            <tr>
+                <td>
+                
+                    {{ article.idArticle }}
+                </td>
+                <td>
+                
+                    {{ article.code }}
+                </td>
+                <td>
+                
+                    {{ article.libelle }}
+                </td>
+                <td>{{ article.quantiteArticle }}</td>
+                <td>{{ article.prixUnitaire }}</td>
+                <td>{{ article.tva }}</td>
+                
+                <td> 
+                    <div class="flex">
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-pencil"
+                            class="p-button-rounded p-button-success mr-2"
+                            (click)=" getArticle(article)"
+                        ></button>
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-trash"
+                            class="p-button-rounded p-button-warning"
+                            (click)="deleteWorker(article.idArticle)"
+                        ></button>
+                    </div></td>
+                 
+            </tr>
+         
+        </ng-template>
+    </p-table>
+    <p-confirmDialog header="Confirmation" key="confirm1" icon="pi pi-exclamation-triangle" message="Are you sure you want to proceed?"
+    [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+</div>
+<p-dialog header="update Article" [(visible)]="display" [modal]="true" showEffect="fade" [style]="{width: '60vw'}" [breakpoints]="{'960px': '75vw'}">
+   
+<div class="card">
+    <span class="text-900 text-xl font-bold mb-4 block">Update Article</span>
+    <div class="grid">
+      
+        <div class="col-12 lg:col-10">
+            <div class="grid formgrid p-fluid">
+              
+                <div class="field mb-4 col-12">
+                    <label for="code" class="font-medium text-900"
+                        >code</label
+                    >
+                    <input id="code" type="text" pInputText placeholder="{{this.article?.code || ''}}" />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="libelle" class="font-medium text-900"
+                        >libelle</label
+                    >
+                    <input id="libelle" type="text" pInputText  placeholder="{{this.article?.libelle || ''}}"/>
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="libelle" class="font-medium text-900"
+                        >Prix Unitaire</label
+                    >
+                    <input id="prixUnitaire" type="number" pInputText  placeholder="{{this.article?.prixUnitaire || ''}}"/>
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="TVA" class="font-medium text-900"
+                        >TVA</label
+                    >
+                    <input id="TVA" type="number" pInputText  placeholder="{{this.article?.tva || ''}}"/>
+                </div>
+                
+              
+      <div class="col-12">
+                  
+                    <p-messages [value]="msgs"></p-messages>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+ <ng-template pTemplate="footer">
+
+           <!--(click)="display=false"--> <button pButton icon="pi pi-check" (click)=" editArticle()" label="create" class="p-button-outlined"> </button>
+    </ng-template>
+</p-dialog>
+
+
+
+

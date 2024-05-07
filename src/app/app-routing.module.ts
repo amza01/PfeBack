@@ -49,6 +49,13 @@ const routes: Routes = [
                     ),
             },
             {
+                path: 'facture',
+                loadChildren: () =>
+                    import('./demo/Facture/facture.module').then(
+                        (m) => m.FactureModule
+                    ),
+            },
+            {
                 path: 'uikit',
                 data: { breadcrumb: 'UI Kit' },
                 loadChildren: () =>

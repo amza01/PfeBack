@@ -12,28 +12,14 @@ import { CustomerService } from 'src/app/demo/service/customer.service';
 })
 export class ClientCreateComponent implements OnInit {
   msgs: Message[] = [];
- 
-
-
-  
   constructor(private customerService: CustomerService, private primengConfig: PrimeNGConfig,private service :MessageService, private confirmationService :ConfirmationService){}
 
   ngOnInit() {
       this.primengConfig.ripple = true;
-      
-    
-  
-  }
-
-
-    
-  createWorker() {
+  } createWorker() {
       let user :any =null;
     
-      const formData = new FormData();
-  
-            
-                      const email = (document.getElementById('email') as HTMLInputElement).value;
+                     const email = (document.getElementById('email') as HTMLInputElement).value;
                       const addresse = (document.getElementById('userName') as HTMLInputElement).value;
                       const numeroTel = (document.getElementById('phone') as HTMLInputElement).value;
                       const tauxRemise = (document.getElementById('tauxRemise') as HTMLInputElement)?.value;

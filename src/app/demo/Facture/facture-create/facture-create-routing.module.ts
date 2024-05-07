@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FactureCreateComponent } from './facture-create.component';
 import { RouterModule } from '@angular/router';
-import { ArticleCreateComponent } from './article-create.component';
 
 
 
 @NgModule({
-
+ 
 	imports: [RouterModule.forChild([
-		{ path: '', component: ArticleCreateComponent }
+		{ path: '', component: FactureCreateComponent }
 	])],
 	exports: [RouterModule]
 })
-export class ArticleCreateRoutingModule { }
+export class FactureCreateRoutingModule { }

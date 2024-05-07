@@ -76,7 +76,24 @@ export class AppMenuComponent implements OnInit {
                           
                         ],
                     },
-
+                         {
+                        label: 'Facture',
+                        icon: 'pi pi-fw pi-file',
+                        items: [
+                            {
+                                label: 'List',
+                                icon: 'pi pi-fw pi-list',
+                                routerLink: ['facture/list'],
+                            },
+                            {
+                                label: 'Create',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['facture/create'],
+                            },
+                          
+                        ],
+                    },
+/*
                     {
                         label: 'Calendar',
                         icon: 'pi pi-fw pi-calendar',
@@ -453,7 +470,7 @@ export class AppMenuComponent implements OnInit {
                                 ],
                             },
                         ],
-                    },
+                    },*/
                 ],
             },
            

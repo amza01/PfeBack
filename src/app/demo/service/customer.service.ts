@@ -51,12 +51,16 @@ postUser(userJson: any) {
       };
  
     return this.http.post<any>('http://localhost:8090/api/postClient', userJson,httpOptions);
-
- 
-    
-   
 }
+postUser1(userJson: any) {
+  const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json' // Spécifiez le type de contenu JSON
+      })
+    };
 
+  return this.http.post<any>('http://localhost:8090/api/postSupplier', userJson,httpOptions);
+}
 editWorker(workerId:number,worker: any): Promise<Worker> {
  
     const httpOptions = {

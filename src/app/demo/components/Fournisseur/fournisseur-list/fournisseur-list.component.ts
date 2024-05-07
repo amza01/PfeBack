@@ -15,24 +15,21 @@ import { CustomerService } from 'src/app/demo/service/customer.service';
 })
 export class FournisseurListComponent implements OnInit {
     
-  user :any;
+  //user :any;
   user1 :any;
-  selectedCities: Role[] = [];
-  cities: any[] | undefined;
-  display: boolean = false;
-  display1: boolean = false;
+   display: boolean = false;
   msgs: Message[] = [];
-  customers: Customer[] = [];
-  client :any[]=[]
-  supplier :any[]=[]
+    supplier :any[]=[]
 
   constructor(private customerService: CustomerService, private router: Router,private confirmationService :ConfirmationService,private primengConfig: PrimeNGConfig) { }
-
 
   ngOnInit() {
       this.primengConfig.ripple = true;
     
-      this.customerService.getSupplier().then(supplier=>this.supplier=supplier);
+      this.customerService.getSupplier().then(supplier=>
+       this.supplier=supplier
+      //console.log(supplier)
+      );
    
 
   }
@@ -41,98 +38,12 @@ export class FournisseurListComponent implements OnInit {
       table.filterGlobal((event.target as HTMLInputElement).value, 'contains')
   }
 
-  navigateToCreateUser(){
-      this.router.navigate(['fournisse/create'])
+  navigateToCreateFournisseur(){
+      this.router.navigate(['fournisseur/create'])
   }
-  editWorker(){
-      let tauxRemise;
-      let email;
-      let numeroTel;
-      let addresse;
-      const emailInput = document.getElementById('email') as HTMLInputElement;
-const addressInput = document.getElementById('userName') as HTMLInputElement;
-const phoneInput = document.getElementById('phone') as HTMLInputElement;
-const tauxRemiseInput = document.getElementById('tauxRemise') as HTMLInputElement;
-
-
-// Vérifier si l'élément emailInput n'est pas nul et que sa valeur n'est pas une chaîne vide
-if (emailInput && emailInput.value.trim() !== '') {
-  // L'email n'est pas vide, faire quelque chose
-  email = emailInput.value;
-  // Faire quelque chose avec l'email
-} else {
-   email = this.user?.email;
-}
-
-// Vérifier si l'élément addressInput n'est pas nul et que sa valeur n'est pas une chaîne vide
-if (addressInput && addressInput.value.trim() !== '') {
-  // L'adresse n'est pas vide, faire quelque chose
-  addresse = addressInput.value;
-  // Faire quelque chose avec l'adresse
-} else {
-  addresse = this.user?.addresse;
-}
-
-// Vérifier si l'élément phoneInput n'est pas nul et que sa valeur n'est pas une chaîne vide
-if (phoneInput && phoneInput.value.trim() !== '') {
-  // Le numéro de téléphone n'est pas vide, faire quelque chose
-  const numeroTel = phoneInput.value;
  
-} else {
-  // Le numéro de téléphone est vide ou l'élément est nul, gérer le cas
-  const numeroTel = this.user?.numeroTel;
-}
-if(tauxRemiseInput && tauxRemiseInput!=null)
-  {
-       tauxRemise=  tauxRemiseInput.value;
-
-  }else{
-      tauxRemise=this.user?.remiseTVA;
-  }
-
-     
-
-// Mettre à jour la valeur du champ "roles" dans le formulaire
-
-      let user: any = {
-           
-          email: email,
-          password:numeroTel,
-          numeroTel: numeroTel,
-         
-          addresse: addresse,
-        
-          remiseTVA: tauxRemise
-      
-     
-    // imageData:undefined
-      };
-    
-      console.log(user);
-      let workerJson = JSON.stringify(user);
-  
-    
-      this.confirmationService.confirm({
-          key: 'confirm1',
-          message: 'Are you sure to perform this action?',
-          accept: () => {
-              if(this.user!=undefined)
-
-      this.customerService.editWorker(this.user.id,workerJson ).then(res =>
-         
-         console.log(res)
-         );
-         window.location.reload();
-        
-
-
-  }
-
-})
-
-
-  }
   editWorker1(){
+    console.log(this.user1);
       let rib;
       let email;
       let numeroTel;
@@ -150,7 +61,7 @@ if (emailInput && emailInput.value.trim() !== '') {
   email = emailInput.value;
   // Faire quelque chose avec l'email
 } else {
-   email = this.user?.email;
+   email = this.user1?.email;
 }
 
 // Vérifier si l'élément addressInput n'est pas nul et que sa valeur n'est pas une chaîne vide
@@ -159,7 +70,7 @@ if (addressInput && addressInput.value.trim() !== '') {
   addresse = addressInput.value;
   // Faire quelque chose avec l'adresse
 } else {
-  addresse = this.user?.addresse;
+  addresse = this.user1?.addresse;
 }
 
 // Vérifier si l'élément phoneInput n'est pas nul et que sa valeur n'est pas une chaîne vide
@@ -169,21 +80,21 @@ if (phoneInput && phoneInput.value.trim() !== '') {
  
 } else {
   // Le numéro de téléphone est vide ou l'élément est nul, gérer le cas
-   numeroTel = this.user?.numeroTel;
+   numeroTel = this.user1?.numeroTel;
 }
-if(ribInput)
+if(ribInput&&ribInput.value.trim()!=='')
   {
       rib=ribInput.value;
 
   }else{
-      rib=this.user?.rib;
+      rib=this.user1?.rib;
   }
-  if(cinInput)
+  if(cinInput&&cinInput.value.trim()!=='')
       {
           cin=cinInput.value;
   
       }else{
-          cin=this.user?.cin;
+          cin=this.user1?.cin;
       }
      
 
@@ -192,7 +103,7 @@ if(ribInput)
       let user: any = {
            
           email: email,
-          password:numeroTel,
+         
           numeroTel: numeroTel,
          
           addresse: addresse,
@@ -204,49 +115,29 @@ if(ribInput)
     // imageData:undefined
       };
     
-      console.log(user);
-      let workerJson = JSON.stringify(user);
   
+      let workerJson = JSON.stringify(user);
+    console.log(workerJson);
     
       this.confirmationService.confirm({
           key: 'confirm1',
           message: 'Are you sure to perform this action?',
           accept: () => {
-              if(this.user!=undefined)
+              if(this.user1!=undefined)
 
-      this.customerService.editWorker1(this.user.id,workerJson ).then(res =>
+      this.customerService.editWorker1(this.user1.id,workerJson ).then(res =>
          
          console.log(res)
          );
          window.location.reload();
-        
-
-
   }
 
 })
-
-
+  
+  
+      
   }
-  deleteWorker(workerId:string){
-     
-      this.confirmationService.confirm({
-          key: 'confirm1',
-          message: 'Are you sure to perform this action?',
-          accept: () => {
-
-      this.customerService.deleteWorkerLarge( workerId).then(res =>
-         
-         console.log(res)
-         );
-        window.location.reload();
-         
-
-
-  }
-
-})
-  }
+ 
 
   deleteWorker1(workerId:string){
      
@@ -259,22 +150,14 @@ if(ribInput)
          
          console.log(res)
          );
-        window.location.reload();
-         
-
-
+       window.location.reload();
+        
   }
-
 })
   }
-  getUser(user:User1){
-      this.display=true;
-      this.user=user
-      console.log(this.user);
 
-  }
   getUser1(user :any){
-      this.display1=true;
+      this.display=true;
       this.user1=user
   }
 

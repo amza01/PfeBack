@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ArticleCreateRoutingModule } from './article-create-routing.module';
-import { ArticleCreateComponent } from './article-create.component';
+import { FactureCreateRoutingModule } from './facture-create-routing.module';
+import { FactureCreateComponent } from './facture-create.component';
 import { FormsModule } from '@angular/forms';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -19,15 +19,15 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PasswordModule } from 'primeng/password';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RippleModule } from 'primeng/ripple';
-import { MessagesDemoRoutingModule } from '../../uikit/messages/messagesdemo-routing.module';
+import { MessagesDemoRoutingModule } from '../../components/uikit/messages/messagesdemo-routing.module';
 
 
 
 @NgModule({
-	imports: [
+  imports: [
 		CommonModule,
 		FormsModule,
-		ArticleCreateRoutingModule,
+		FactureCreateRoutingModule,
 		ButtonModule,
 		RippleModule,
 		InputTextModule,
@@ -41,7 +41,7 @@ import { MessagesDemoRoutingModule } from '../../uikit/messages/messagesdemo-rou
 		MessageModule,OverlayPanelModule,ConfirmDialogModule, RadioButtonModule
 
 	],
-	declarations: [ArticleCreateComponent],
+	declarations: [FactureCreateComponent],
 	providers: [MessageService,ConfirmationService] // Add MessageService to providers array
 })
-export class ArticleCreateModule { }
+export class FactureCreateModule { }

@@ -31,10 +31,7 @@ export class ClientListComponent implements OnInit {
 
   ngOnInit() {
       this.primengConfig.ripple = true;
-    
-    
-    
-      this.customerService.getClient().then(client=>this.client=client);
+    this.customerService.getClient().then(client=>this.client=client);
 
   }
 

@@ -1,1 +1,57 @@
-<p>article-create works!</p>
+<div class="card">
+    <span class="text-900 text-xl font-bold mb-4 block">Créer un article</span>
+    <div class="grid">
+        <div class="col-12 lg:col-2">
+            
+        </div>
+        <div class="col-12 lg:col-10">
+            <div class="grid formgrid p-fluid">
+              
+                <div class="field mb-4 col-12">
+                    <label for="code" class="font-medium text-900"
+                        >Code</label
+                    >
+                    <input id="code" type="text" pInputText [(ngModel)]="code" />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="libelle" class="font-medium text-900"
+                        >Libellé</label
+                    >
+                    <input id="libelle" type="text" pInputText [(ngModel)]="libelle" />
+                </div>
+              
+                <div class="field mb-4 col-12">
+                    <label for="quantite" class="font-medium text-900"
+                        >Quantité</label
+                    >
+                    <input id="quantiteArticle" type="number" pInputText [(ngModel)]="quantiteArticle" />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="libelle" class="font-medium text-900"
+                        >Prix Unitaire</label
+                    >
+                    <input id="prixUnitaire" type="number" pInputText [(ngModel)]="prixUnitaire" />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="TVA" class="font-medium text-900"
+                        >TVA</label
+                    >
+                    <input id="TVA" type="number" pInputText [(ngModel)]="TVA" />
+                </div>
+               <p-confirmDialog header="Confirmation" key="confirm1" icon="pi pi-exclamation-triangle" message="Are you sure you want to proceed?"
+                                     [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text">
+                    </p-confirmDialog>
+                    <div class="col-12">
+                    <button
+                        pButton
+                        pRipple
+                        label="Créer Article"
+                        class="w-auto mt-3"
+                        (click)="createArticle()"
+                    ></button>
+                    <p-messages [value]="msgs"></p-messages>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

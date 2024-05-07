@@ -1,1 +1,56 @@
-<p>fournisseur-create works!</p>
+<div class="card">
+    <span class="text-900 text-xl font-bold mb-4 block">Créer un fournisseur</span>
+    <div class="grid">
+        <div class="col-12 lg:col-2">
+            
+        </div>
+        <div class="col-12 lg:col-10">
+            <div class="grid formgrid p-fluid">
+              
+                <div class="field mb-4 col-12">
+                    <label for="email" class="font-medium text-900"
+                        >Email</label
+                    >
+                    <input id="email" type="text" pInputText  />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="address" class="font-medium text-900"
+                        >Adresse</label
+                    >
+                    <input id="address" type="text" pInputText  />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="phone" class="font-medium text-900"
+                        >Numéro de téléphone</label
+                    >
+                    <input id="phone" type="text" pInputText  />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="rib" class="font-medium text-900"
+                        >RIB</label
+                    >
+                    <input id="rib" type="text" pInputText />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="cin" class="font-medium text-900"
+                        >CIN</label
+                    >
+                    <input id="cin" type="text" pInputText />
+                </div>
+               <p-confirmDialog header="Confirmation" key="confirm1" icon="pi pi-exclamation-triangle" message="Are you sure you want to proceed?"
+                                     [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text">
+                    </p-confirmDialog>
+                    <div class="col-12">
+                    <button
+                        pButton
+                        pRipple
+                        label="Créer un Fournisseur"
+                        class="w-auto mt-3"
+                        (click)="createWorker()"
+                    ></button>
+                    <p-messages [value]="msgs"></p-messages>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
