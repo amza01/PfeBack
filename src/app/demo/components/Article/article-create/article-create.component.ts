@@ -26,7 +26,8 @@ export class ArticleCreateComponent {
           libelle: this.libelle,
           quantiteArticle: this.quantiteArticle,
           prixUnitaire:this.prixUnitaire,
-          tva:this.TVA
+          tva:this.TVA,
+          etat: "en stock"
         };
     console.log(newArticle);
     let newArticleJson = JSON.stringify(newArticle);

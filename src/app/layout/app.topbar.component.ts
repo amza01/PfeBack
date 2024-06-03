@@ -26,7 +26,7 @@ export class AppTopbarComponent {
         this.layoutService.onMenuToggle();
     }
     logOut(){
-        localStorage.removeItem('token');
-        window.location.reload(); // Recharger la page après la redirection
+        localStorage.removeItem('x');
+        window.location.reload(); 
     }
 }

@@ -7,8 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppMenuComponent implements OnInit {
     model: any[] = [];
+    nub:any;
 
     ngOnInit() {
+        this.nub=localStorage.getItem('x');
         this.model = [
             {
                 label: 'Favorites',
@@ -17,9 +19,15 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Dashboard',
                         icon: 'pi pi-fw pi-home',
-                        routerLink: ['/'],
+                        routerLink: ['/home'],
+                    },
+                    {
+                        label: 'Gestion de Comptes',
+                        icon: 'pi pi-fw pi-user',
+                        routerLink: ['/client/listAdmin'],
                     },
                 ],
+           x:'1'
             },
             {
                 label: 'Manage',
@@ -41,6 +49,7 @@ export class AppMenuComponent implements OnInit {
                             },
                           
                         ],
+                       
                     },
                     {
                         label: 'Client',
@@ -58,6 +67,7 @@ export class AppMenuComponent implements OnInit {
                             },
                           
                         ],
+                        
                     },
                     {
                         label: 'Article',
@@ -75,15 +85,21 @@ export class AppMenuComponent implements OnInit {
                             },
                           
                         ],
+                       
                     },
                          {
                         label: 'Achats',
                         icon: 'pi pi-fw pi-file',
                         items: [
                             {
-                                label: 'List',
+                                label: 'Bon de Commande List',
                                 icon: 'pi pi-fw pi-list',
-                                routerLink: ['facture/list'],
+                                routerLink: ['facture/listBonDeCommande'],
+                            },
+                            {
+                                label: 'Bon de reception List',
+                                icon: 'pi pi-fw pi-list',
+                                routerLink: ['facture/listBonDeReception'],
                             },
                             {
                                 label: 'Create',
@@ -92,22 +108,36 @@ export class AppMenuComponent implements OnInit {
                             },
                           
                         ],
+                      
                     },{
                         label: 'Ventes',
                         icon: 'pi pi-fw pi-dollar',
                         items: [
                             {
-                                label: 'List',
+                                label: 'List Devis',
                                 icon: 'pi pi-fw pi-list',
-                                routerLink: ['facture/list'],
+                                routerLink: ['vente/listDevis'],
+                            },
+                            {
+                                label: 'List Facture',
+                                icon: 'pi pi-fw pi-list',
+                                routerLink: ['vente/listFacture'],
                             },
                             {
                                 label: 'Create',
                                 icon: 'pi pi-fw pi-plus',
-                                routerLink: ['facture/create'],
+                                routerLink: ['vente/create'],
                             },
                           
                         ],
+                       
+                    },
+                    
+                    {
+                        label: 'Stock',
+                        icon: 'pi pi-fw pi-pencil',
+                        routerLink: ['stock'],
+                        
                     },
 /*
                     {
@@ -488,6 +518,7 @@ export class AppMenuComponent implements OnInit {
                         ],
                     },*/
                 ],
+          x:'0'
             },
            
         ];

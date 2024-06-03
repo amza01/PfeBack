@@ -40,6 +40,23 @@
                     class="w-11 "
                     (click)="logIn()"
                 ></button>
+                <button
+                pButton
+                pRipple
+                label="Register"
+                type="button"
+                class="w-8 mt-4 "
+                (click)="logIn()"
+                routerLink="/auth/register"
+            ></button>
+            <button
+            pButton
+            pRipple
+            label="Forget Password ?"
+            type="button"
+            class="w-8 mt-4 "
+            (click)="logIn()"
+        ></button>
                 <p-messages [value]="msgs"></p-messages>
             </div>
 

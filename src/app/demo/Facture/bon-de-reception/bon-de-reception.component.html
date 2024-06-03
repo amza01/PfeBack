@@ -1,0 +1,137 @@
+<div class="card">
+    <p-table
+        #dt
+        [value]="bonsDeCommande"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        responsiveLayout="scroll"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [globalFilterFields]="['code', 'description', 'description']"
+    >
+        <ng-template pTemplate="caption">
+            <div
+                class="flex flex-wrap gap-2 align-items-center justify-content-between"
+            >
+                <span
+                    class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0"
+                >
+                    <i class="pi pi-search"></i>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="onGlobalFilter(dt, $event)"
+                        placeholder="Recherche globale"
+                        class="w-full"
+                    />
+                </span>
+                
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                
+                <th>Code</th>
+                <th>Fournisseur</th>
+                <th>Description</th>
+                <th>Prix Total (DT)</th>
+                <th>Date</th>
+               
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-bonDeCommande>
+            <tr>
+               
+                <td>{{ bonDeCommande.code }}</td>
+                <td>{{ bonDeCommande.fournisseur?.email }}</td>
+                <td>{{ bonDeCommande.description }}</td>
+                <td>{{ bonDeCommande.prixTotal }}</td>
+                <td>{{ bonDeCommande.date }}</td>
+              
+                <td>
+                    
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-fw pi-file"
+                        class="p-button-rounded p-button-success mr-2"
+                        (click)="print(bonDeCommande)"
+                    ></button>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-trash"
+                        class="p-button-rounded p-button-warning"
+                        (click)="deleteBonDeCommande(bonDeCommande.id)"
+                    ></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-confirmDialog header="Confirmation" key="confirm1" icon="pi pi-exclamation-triangle" message="Êtes-vous sûr de vouloir continuer ?"
+    [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+</div>
+
+<p-dialog header="Mettre à jour le bon de commande" [(visible)]="display" [modal]="true" showEffect="fade" [style]="{width: '60vw'}" [breakpoints]="{'960px': '75vw'}">
+   
+<div class="card">
+    <span class="text-900 text-xl font-bold mb-4 block">Mettre à jour le bon de commande</span>
+    <div class="grid">
+      
+        <div class="col-12 lg:col-10">
+            <div class="grid formgrid p-fluid">
+              
+                <div class="field mb-4 col-12">
+                    <label for="code" class="font-medium text-900"
+                        >Code</label
+                    >
+                    <input id="code" type="text" pInputText [(ngModel)]="bonDeCommande.code" />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="fournisseur" class="font-medium text-900"
+                        >Fournisseur</label
+                    >
+                    <input id="fournisseur" type="text" pInputText [(ngModel)]="bonDeCommande.fournisseur" />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="description" class="font-medium text-900"
+                        >Description</label
+                    >
+                    <input id="description" type="text" pInputText [(ngModel)]="bonDeCommande.description" />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="prixTotal" class="font-medium text-900"
+                        >Prix Total</label
+                    >
+                    <input id="prixTotal" type="number" pInputText [(ngModel)]="bonDeCommande.prixTotal" />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="date" class="font-medium text-900"
+                        >Date</label
+                    >
+                    <input id="date" type="date" pInputText [(ngModel)]="bonDeCommande.date" />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="status" class="font-medium text-900"
+                        >Status</label
+                    >
+                    <input id="status" type="text" pInputText [(ngModel)]="bonDeCommande.status" />
+                </div>
+              
+      <div class="col-12">
+                  
+                    <p-messages [value]="msgs"></p-messages>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+ <ng-template pTemplate="footer">
+    <button pButton icon="pi pi-check" (click)="editBonDeCommande()" label="Mettre à jour" class="p-button-outlined"></button>
+</ng-template>
+</p-dialog>

@@ -1,0 +1,78 @@
+<div class="card">
+    <span class="text-900 text-xl font-bold mb-4 block">Créer un devis</span>
+    <div class="grid">
+        <div class="col-12 lg:col-2">
+            
+        </div>
+        <div class="col-12 lg:col-10">
+            <div class="grid formgrid p-fluid">
+              
+                <div class="field mb-4 col-12">
+                    <label for="code" class="font-medium text-900"
+                        >Code</label
+                    >
+                    <input id="code" type="text" pInputText [(ngModel)]="devis.code" />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="code" class="font-medium text-900"
+                        >Description</label
+                    >
+                    <input id="description" type="text" pInputText [(ngModel)]="devis.description" />
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="client" class="font-medium text-900">Client</label>
+                    <p-dropdown 
+    [options]="client" 
+    [(ngModel)]="devis.client" 
+    optionLabel="id" 
+    placeholder="Choisir un client" />
+                    
+                </div>
+                
+              
+              
+                <div class="field mb-4 col-12 ">
+                    <label for="article" class="font-medium text-900">Articles</label>
+                    <p-dropdown 
+                        [options]="articles" 
+                        [(ngModel)]="selectedArticle" 
+                        optionLabel="libelle" 
+                        placeholder="Choisir un article">
+                    </p-dropdown>
+                    <div class="mb-4">
+
+                    </div>
+                    <input id="quantiteArticle" type="number" pInputText [(ngModel)]="selectedQuantity" />
+                   
+                    <button (click)="addArticle()" pButton icon="pi pi-plus" class="p-button-text mt-2"></button>
+                </div>
+                
+                <div class="field mb-4 col-12">
+                    <label for="selectedArticles" class="font-medium text-900">Articles sélectionnés</label>
+                    <ul>
+                        <li *ngFor="let item of selectedArticles">
+                            {{ item.article.libelle }} - Quantité: {{ item.quantity }}
+                            <button (click)="removeArticle(item)" pButton icon="pi pi-trash" class="p-button-text "></button>
+                        </li>
+                    </ul>
+                </div>
+                
+               
+               
+               <p-confirmDialog header="Confirmation" key="confirm1" icon="pi pi-exclamation-triangle" message="Are you sure you want to proceed?"
+                                     [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text">
+                    </p-confirmDialog>
+                    <div class="col-12">
+                    <button
+                        pButton
+                        pRipple
+                        label="Créer Devis"
+                        class="w-auto mt-3"
+                        (click)="createDevis()"
+                    ></button>
+                    <p-messages [value]="msgs"></p-messages>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

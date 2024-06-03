@@ -3,7 +3,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { BonDeCommandeServiceService } from '../../service/bon-de-commande-service.service';
 import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
-
+import { jsPDF } from 'jspdf';
+import "jspdf-autotable";
 @Component({
   selector: 'app-facture-list',
 
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class FactureListComponent implements OnInit {
   bonsDeCommande: any[] = [];
+  filteredBonsDeCommande:any[]=[];
   bonDeCommande: any = {
     code: '',
     fournisseur: '',
@@ -33,13 +35,16 @@ export class FactureListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadBonsDeCommande();
+   
   }
 
   loadBonsDeCommande() {
     this.bonDeCommandeService.getBonsDeCommande().subscribe(
       bonsDeCommande => {
-        console.log(bonsDeCommande);
-        this.bonsDeCommande = bonsDeCommande;
+       this.bonDeCommande=bonsDeCommande
+        this.filteredBonsDeCommande = bonsDeCommande.filter(bon => bon.status == 'Pas encore');
+     
+       
       },
       error => {
         console.error('Erreur lors du chargement des bons de commande:', error);
@@ -68,24 +73,93 @@ this.router.navigate(['facture/create'])
     // Implémentez la mise à jour du bon de commande ici
   }
 
-  print( code:string){
+  print( data:Data){
+    console.log(data)
     this.confirmationService.confirm({
      key: 'confirm1',
         message: 'Are you sure to perform this action?',
       accept: () => { 
-        this.bonDeCommandeService.generateReport(code).subscribe(
-          (response) => {
-            // Gérer la réponse ici
-            console.log('Report generated:', response);
-          },
-          (error:Response) => {
-          if(error.status==200)
-            alert("télechargé")
-          }
-        );
+        const doc = new jsPDF();
 
-console.log("hihi");
+// Add title
+doc.setFontSize(18);
+doc.text('Bon de commande', 67, 22);
 
+doc.setFontSize(10); // Adjust font size for other text
+const pageWidth1 = doc.internal.pageSize.getWidth();
+const dateText = `Date: ${data.date}`;
+const dateTextWidth = doc.getTextWidth(dateText);
+doc.text(dateText, pageWidth1 - dateTextWidth - 14, 14);
+
+// Add description
+doc.text(`Description: ${data.description}`, 14, 52);
+
+// Add fournisseur details
+const fournisseur = data.fournisseur;
+doc.text('Fournisseur:', 14, 62);
+doc.text(`Email: ${fournisseur.email}`, 14, 72);
+doc.text(`Telephone: ${fournisseur.numeroTel}`, 14, 82);
+doc.text(`Adresse: ${fournisseur.addresse}`, 14, 92);
+doc.text(`RIB: ${fournisseur.rib}`, 14, 102);
+
+// Convert articlesQuantites to an array
+const articlesQuantitesArray: ArticleQuantite[] = Object.entries(data.articlesQuantites).map(([articleStr, quantity]) => {
+    // Parse articleStr to extract the article object
+    const articleMatch = articleStr.match(/Article\(idArticle=(\d+), code=(.+?), libelle=(.+?), quantiteArticle=(\d+), prixUnitaire=(.+?), tva=(.+?), etat=(.+?)\)/);
+    if (!articleMatch) {
+        console.error("Failed to parse article string:", articleStr);
+        return null;
+    }
+    const [_, idArticle, code, libelle, quantiteArticle, prixUnitaire, tva, etat] = articleMatch;
+    const article: Article = {
+        idArticle: Number(idArticle),
+        code,
+        libelle,
+        quantiteArticle: Number(quantiteArticle),
+        prixUnitaire: Number(prixUnitaire),
+        tva: Number(tva),
+        etat,
+    };
+    return {
+        article,
+        quantite: Number(quantity),
+    };
+}).filter((item): item is ArticleQuantite => item !== null);
+
+// Define columns
+const columns = [
+   
+    { header: 'Code', dataKey: 'article.code' },
+    { header: 'Libelle', dataKey: 'article.libelle' },
+    { header: 'Quantite Achete', dataKey: 'quantite' },
+    { header: 'Prix Unitaire', dataKey: 'article.prixUnitaire' },
+];
+
+// Create the table
+doc.autoTable({
+    head: [columns.map(col => col.header)],
+    body: articlesQuantitesArray.map(row => columns.map(col => {
+        const keys = col.dataKey.split('.');
+        let value: any = row;
+        for (const key of keys) {
+            value = value[key];
+        }
+        return value;
+    })),
+    startY: 112,
+});
+// Get the final Y position after the table
+const finalY = (doc as any).autoTable.previous.finalY;
+
+// Add total price below the table and centered
+const pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+const totalText = `Prix Total (en DT): ${data.prixTotal}`;
+const textWidth = doc.getTextWidth(totalText);
+const centerX = (pageWidth - textWidth) / 2;
+doc.text(totalText, centerX, finalY + 20);
+// Save the PDF
+doc.save('bon_de_commande.pdf');
+        
       }});
     }
 check(bonDeCommande:any){
@@ -95,11 +169,11 @@ check(bonDeCommande:any){
      accept: () => { 
       this.bonDeCommandeService.updateStatus(bonDeCommande.id)
       .subscribe(() => {
- this.loadBonsDeCommande();
+      this.loadBonsDeCommande()
       }, error => {
        
       });
-console.log("hihi");
+      window.location.reload()
 
      }});
 
@@ -131,4 +205,38 @@ console.log("hihi");
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains')
 }
+}
+
+interface Fournisseur {
+  id: number;
+  email: string;
+  numeroTel: string;
+  addresse: string;
+  rib: string;
+}
+
+interface Article {
+  idArticle: number;
+  code: string;
+  libelle: string;
+  quantiteArticle: number;
+  prixUnitaire: number;
+  tva: number;
+  etat: string;
+}
+
+interface ArticleQuantite {
+  article: Article;
+  quantite: number;
+}
+
+interface Data {
+  code: string;
+  date: string;
+  description: string;
+  fournisseur: Fournisseur;
+  id: number;
+  prixTotal: number;
+  status: string;
+  articlesQuantites: { [key: string]: number };
 }

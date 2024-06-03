@@ -1,0 +1,77 @@
+<div
+    class="h-screen text-bluegray-200"
+    style="background: linear-gradient(180deg, #525d72 0%, #69768d 100%)"
+>
+    <div class="flex justify-content-center align-items-center h-full ">
+        <div
+            class="h-full text-center py-6 px-4 flex justify-content-between flex-column max-w-30rem"
+        >
+            <a [routerLink]="['/']">
+                <img
+                    src="assets/layout/images/logo-poseidon-dark.svg"
+                    alt="poseidon-layout"
+                    height="45px"
+                />
+            </a>
+            <div>
+                <h2 class="text-bluegray-200">Welcome</h2>
+               
+                <input
+                    type="text"
+                    autocomplete="off"
+                    pInputText
+                    placeholder="Fisrt Name"
+                    class="w-11 mb-4 text-bluegray-600 surface-ground "
+                    [(ngModel)]="firstName"
+                />
+                  
+                <input
+                    type="text"
+                    autocomplete="off"
+                    pInputText
+                    placeholder="Last name"
+                    class="w-11 mb-4 text-bluegray-600 surface-ground "
+                    [(ngModel)]="lastName"
+                />
+                  
+                <input
+                    type="text"
+                    autocomplete="off"
+                    pInputText
+                    placeholder="Email"
+                    class="w-11 mb-4 text-bluegray-600 surface-ground "
+                    [(ngModel)]="email"
+                />
+                <input
+                    type="password"
+                    autocomplete="off"
+                    pInputText
+                    placeholder="Password"
+                    class="w-11 mb-4 text-bluegray-600 surface-ground "
+                    [(ngModel)]="password"
+                />
+                <input
+                type="password"
+                autocomplete="off"
+                pInputText
+                placeholder="Confirm Password"
+                class="w-11 mb-4 text-bluegray-600 surface-ground "
+                [(ngModel)]="confirmPassword"
+            />
+                <button
+                    pButton
+                    pRipple
+                    label="SIGN UP"
+                    type="button"
+                    class="w-11 "
+                    (click)="signUp()"
+                ></button>
+                <p-messages [value]="msgs"></p-messages>
+            </div>
+
+            <p class="font-semibold m-0 text-bluegray-200">
+            </p>
+        </div>
+    </div>
+</div>
+<app-config [minimal]="true"></app-config>

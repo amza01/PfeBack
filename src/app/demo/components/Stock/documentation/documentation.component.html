@@ -1,0 +1,125 @@
+<div class="card">
+    <p-table
+        #dt
+        [value]="articles"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        responsiveLayout="scroll"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [globalFilterFields]="['code', 'libelle', 'representative.name']"
+    >
+        <ng-template pTemplate="caption">
+            <div
+                class="flex flex-wrap gap-2 align-items-center justify-content-between"
+            >
+                <span
+                    class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0"
+                >
+                    <i class="pi pi-search"></i>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="onGlobalFilter(dt, $event)"
+                        placeholder="Global Search"
+                        class="w-full"
+                    />
+                </span>
+              
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+              
+               
+                <th
+                    pSortableColumn="code"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    Code<p-sortIcon field="code"></p-sortIcon>
+                </th>
+                <th
+                    pSortableColumn="libelle"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    Libelle <p-sortIcon field="libelle"></p-sortIcon>
+                </th>
+                <th
+                    pSortableColumn="Libelle"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    Quantité<p-sortIcon field="Quantité"></p-sortIcon>
+                </th>
+                 <th
+                   
+                   class="white-space-nowrap"
+                   style="width: 25%"
+               >
+              Etat     
+            </th>
+            <th
+                   
+            class="white-space-nowrap"
+            style="width: 25%"
+        >
+       Actions     
+     </th>
+       
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-article>
+            <tr>
+              
+                <td>
+                
+                    {{ article.code }}
+                </td>
+                <td>
+                
+                    {{ article.libelle }}
+                </td>
+                <td>{{ article.quantiteArticle }}</td>
+               
+                
+                <td> 
+                    {{ article.etat }}
+                
+                </td>
+              
+                <td>
+                    <button
+                    pButton
+                    pRipple
+                    icon="pi pi-plus"
+                    class="p-button-rounded p-button-success mr-2"
+                    (click)=" updateQuantity(article)"
+                ></button>
+                </td>
+                 
+            </tr>
+         
+        </ng-template>
+    </p-table>
+  
+</div>
+
+
+<p-confirmDialog header="Add quantity" key="confirm1" [style]="{width: '350px'}"
+                 acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text">
+    <ng-template pTemplate="message">
+        <div class="p-field">
+            <label for="quantity">Quantity</label>
+            <input id="quantity" type="number" pInputText [(ngModel)]="quantity" />
+        </div>
+    </ng-template>
+</p-confirmDialog>
+
+
+
+
+

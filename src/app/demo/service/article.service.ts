@@ -34,5 +34,8 @@ deleteArticle(id: number): Observable<any> {
   const url = `${this.apiUrl}/${id}`;
   return this.http.delete(url);
 }
-
+updateQuantity(id:any,quantite:any): Observable<any>
+{const url = `${this.apiUrl}/quantite/${id}`;
+  return this.http.put<any[]>(url,quantite);
+}
 }

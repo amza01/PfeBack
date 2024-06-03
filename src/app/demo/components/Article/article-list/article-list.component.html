@@ -8,7 +8,7 @@
         responsiveLayout="scroll"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [rowsPerPageOptions]="[10, 25, 50]"
-        [globalFilterFields]="['name', 'country.name', 'representative.name']"
+        [globalFilterFields]="['ID', 'code', 'libelle']"
     >
         <ng-template pTemplate="caption">
             <div
@@ -39,25 +39,25 @@
             <tr>
               
                 <th
-                    pSortableColumn="email"
+                    pSortableColumn="ID"
                     class="white-space-nowrap"
                     style="width: 25%"
                 >
-                    ID <p-sortIcon field="email"></p-sortIcon>
+                    ID <p-sortIcon field="ID"></p-sortIcon>
                 </th>
                 <th
-                    pSortableColumn="Code"
+                    pSortableColumn="code"
                     class="white-space-nowrap"
                     style="width: 25%"
                 >
-                    Code<p-sortIcon field="Code"></p-sortIcon>
+                    Code<p-sortIcon field="code"></p-sortIcon>
                 </th>
                 <th
-                    pSortableColumn="Libelle"
+                    pSortableColumn="libelle"
                     class="white-space-nowrap"
                     style="width: 25%"
                 >
-                    Libelle <p-sortIcon field="Libelle"></p-sortIcon>
+                    Libelle <p-sortIcon field="libelle"></p-sortIcon>
                 </th>
                 <th
                     pSortableColumn="Libelle"
@@ -162,6 +162,12 @@
                         >Prix Unitaire</label
                     >
                     <input id="prixUnitaire" type="number" pInputText  placeholder="{{this.article?.prixUnitaire || ''}}"/>
+                </div>
+                <div class="field mb-4 col-12">
+                    <label for="libelle" class="font-medium text-900"
+                        >Quantité</label
+                    >
+                    <input id="quantiteArticle" type="number" pInputText  placeholder="{{this.article?.quantiteArticle || ''}}"/>
                 </div>
                 <div class="field mb-4 col-12">
                     <label for="TVA" class="font-medium text-900"

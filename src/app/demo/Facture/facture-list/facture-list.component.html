@@ -1,14 +1,14 @@
 <div class="card">
     <p-table
         #dt
-        [value]="bonsDeCommande"
+        [value]="filteredBonsDeCommande"
         [paginator]="true"
         [rows]="10"
         [showCurrentPageReport]="true"
         responsiveLayout="scroll"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [rowsPerPageOptions]="[10, 25, 50]"
-        [globalFilterFields]="['code', 'fournisseur', 'description']"
+        [globalFilterFields]="['code', 'description', 'fournisseur']"
     >
         <ng-template pTemplate="caption">
             <div
@@ -43,7 +43,7 @@
                 <th>Description</th>
                 <th>Prix Total (DT)</th>
                 <th>Date</th>
-                <th>Status</th>
+                
                 <th>Actions</th>
             </tr>
         </ng-template>
@@ -55,7 +55,7 @@
                 <td>{{ bonDeCommande.description }}</td>
                 <td>{{ bonDeCommande.prixTotal }}</td>
                 <td>{{ bonDeCommande.date }}</td>
-                <td>{{ bonDeCommande.status }}</td>
+              
                 <td>
                     <button
                     pButton
@@ -70,7 +70,7 @@
                         pRipple
                         icon="pi pi-fw pi-file"
                         class="p-button-rounded p-button-success mr-2"
-                        (click)="print(bonDeCommande.code)"
+                        (click)="print(bonDeCommande)"
                     ></button>
                     <button
                         pButton

@@ -8,7 +8,7 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
     templateUrl: './login.component.html',
 })
 export class LoginComponent {
-    rememberMe: boolean = false;
+    rememberMe: boolean = true;
    email:string='';
    password:string='';
    msgs:Message[]=[];
@@ -17,24 +17,29 @@ export class LoginComponent {
     get dark(): boolean {
         return this.layoutService.config().colorScheme !== 'light';
     }
-    logIn(){
-
-        
-  // Exemple de requête HTTP (à adapter à ton backend)
-  this.authService.login(this.email, this.password)
-  .subscribe(
-    response => {
-      console.log(this.email);
-   localStorage.setItem('token',this.email);
-   this.router.navigate(['home']);
-      // Gérer la réponse ici
-    },
-    error => {
-      console.log(this.email);
-      console.error('Login error', error.error.error);
-      // Gérer l'erreur ici
-      this.msgs=[];
-                this.msgs = [{ severity: 'error', summary: 'error', detail: " email ou password incorrect" }];
+    logIn() {
+      // Example of HTTP request (adapt to your backend)
+      this.authService.login(this.email, this.password)
+        .subscribe(
+          response => {
+            console.log(response);
+            if (response.message === 'Login superAdmin successful') {
+              localStorage.setItem('x', '1');
+            } else if (response.message === 'Login successful') {
+              localStorage.setItem('x', '0');
+            }
+       
+            this.router.navigate(['home']);
+           
+          },
+          error => {
+            console.log(this.email);
+            console.error('Login error', error.error.error);
+            // Handle the error here
+            this.msgs = [{ severity: 'error', summary: 'Error', detail: error.error.error || "Email or password incorrect" }];
+          }
+        );
     }
-  );
-}}
+    
+
+}

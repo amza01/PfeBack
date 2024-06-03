@@ -43,6 +43,22 @@ getClient() : Promise<any>{
   .toPromise()
   .then(res => res as any);
 }
+getAdmin() : Promise<any>{
+  return this.http.get<any>('http://localhost:8090/api/getAll')
+  .toPromise()
+  .then(res => res as any);
+}
+updateStatus(id:any) : Promise<any>{
+  return this.http.get<any>(`http://localhost:8090/api/updateStatus/${id}`)
+  .toPromise()
+  .then(res => res as any);
+}
+DeleteAdmin(id:any) : Promise<any>{
+  return this.http.delete<any>(`http://localhost:8090/api/Delete/${id}`)
+  .toPromise()
+  .then(res => res as any);
+}
+
 postUser(userJson: any) {
     const httpOptions = {
         headers: new HttpHeaders({

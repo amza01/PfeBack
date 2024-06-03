@@ -80,19 +80,19 @@ const routes: Routes = [
                     ),
             },
             {
-                path: 'profile',
-                data: { breadcrumb: 'User Management' },
+                path: 'vente',
+                data: { breadcrumb: 'ventes' },
                 loadChildren: () =>
-                    import('./demo/components/profile/profile.module').then(
+                    import('./demo/components/bonDeVente/profile.module').then(
                         (m) => m.ProfileModule
                     ),
             },
             {
-                path: 'documentation',
-                data: { breadcrumb: 'Documentation' },
+                path: 'stock',
+                data: { breadcrumb: 'stock' },
                 loadChildren: () =>
                     import(
-                        './demo/components/documentation/documentation.module'
+                        './demo/components/Stock/documentation/documentation.module'
                     ).then((m) => m.DocumentationModule),
             },
             {

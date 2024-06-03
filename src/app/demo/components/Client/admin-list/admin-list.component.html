@@ -1,0 +1,130 @@
+<div class="card">
+    <p-table
+        #dt
+        [value]="client"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        responsiveLayout="scroll"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [globalFilterFields]="['email', 'firstName', 'representative.name']"
+    >
+        <ng-template pTemplate="caption">
+            <div
+                class="flex flex-wrap gap-2 align-items-center justify-content-between"
+            >
+                <span
+                    class="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0"
+                >
+                    <i class="pi pi-search"></i>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="onGlobalFilter(dt, $event)"
+                        placeholder="Global Search"
+                        class="w-full"
+                    />
+                </span>
+              
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+              
+                <th
+                    pSortableColumn="ID"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    ID <p-sortIcon field="ID"></p-sortIcon>
+                </th>
+                <th
+                    pSortableColumn="email"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    email <p-sortIcon field="email"></p-sortIcon>
+                </th>
+                <th
+                    pSortableColumn="firstName"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    firstName <p-sortIcon field="firstName"></p-sortIcon>
+                </th>
+                <th
+                    pSortableColumn="lastName"
+                    class="white-space-nowrap"
+                    style="width: 25%"
+                >
+                    lastName<p-sortIcon field="lastName"></p-sortIcon>
+                </th>
+                <th
+                pSortableColumn="password"
+                class="white-space-nowrap"
+                style="width: 25%"
+            >
+            password<p-sortIcon field="password"></p-sortIcon>
+            </th>
+            <th
+            pSortableColumn="status"
+            class="white-space-nowrap"
+            style="width: 25%"
+        >
+        status<p-sortIcon field="status"></p-sortIcon>
+        </th>
+            <th
+                   
+                   class="white-space-nowrap"
+                   style="width: 25%"
+               >
+                   
+                     </th>
+             
+               
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>
+                
+                    {{ user.id }}
+                </td>
+                <td>
+                
+                    {{ user.email }}
+                </td>
+                <td>
+                
+                    {{ user.firstName }}
+                </td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.status }}</td>
+                <td> 
+                    <div class="flex">
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-sync"
+                            class="p-button-rounded p-button-success mr-2"
+                            (click)=" updateStatus(user)"
+                        ></button>
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-trash"
+                            class="p-button-rounded p-button-warning"
+                            (click)="deleteWorker(user.id)"
+                        ></button>
+                    </div></td>
+                 
+            </tr>
+         
+        </ng-template>
+    </p-table>
+    <p-confirmDialog header="Confirmation" key="confirm1" icon="pi pi-exclamation-triangle" message="Are you sure you want to proceed?"
+    [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+</div>

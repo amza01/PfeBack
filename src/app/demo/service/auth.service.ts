@@ -18,13 +18,17 @@ export class AuthService {
 
   }
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('x');
   }
 
 
   isAuthenticated(): boolean {
     const token = this.getToken();
     return !!token; // Si le token existe, l'utilisateur est considéré comme authentifié
+  }
+  signUp(signUpData:any): Observable<any> {
+    const loginUrl = 'http://localhost:8090/api/register'
+    return this.http.post<any>(loginUrl, signUpData)
   }
   
 }
